@@ -20,6 +20,10 @@ APlayerBase::APlayerBase()
 	springArmComponent->TargetArmLength = 600.0f; // Distance from the player
 	cameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
 	cameraComponent->SetupAttachment(springArmComponent);
+
+	//create other components
+	playerAudeoComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("PlayerAudeoComponent"));
+	playerAudeoComponent->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
@@ -52,7 +56,8 @@ void APlayerBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	EIC->BindAction(cameraRotateXAction, ETriggerEvent::Triggered, this, &APlayerBase::CameraRotateX);
 	EIC->BindAction(cameraRotateYAction, ETriggerEvent::Triggered, this, &APlayerBase::CameraRotateY);
 	EIC->BindAction(playerMoveAction, ETriggerEvent::Triggered, this, &APlayerBase::PlayerMove);
-
+	EIC->BindAction(attack1Action, ETriggerEvent::Triggered, this, &APlayerBase::Aattack1);
+	EIC->BindAction(attack2Action, ETriggerEvent::Triggered, this, &APlayerBase::Aattack2);
 }
 
 void APlayerBase::CameraRotateX(const FInputActionValue& Value)
@@ -89,4 +94,15 @@ void APlayerBase::PlayerMove(const FInputActionValue& Value)
 	movementRotation.Yaw -= 90;
 
 	GetMesh()->SetWorldRotation(movementRotation);
+}
+
+void APlayerBase::Aattack1(const FInputActionValue& Value)
+{
+}
+
+void APlayerBase::Aattack2(const FInputActionValue& Value)
+{
+	//summon magastu izanagi
+	//do some attack
+	//play souynd
 }

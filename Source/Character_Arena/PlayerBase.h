@@ -7,6 +7,7 @@
 
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Components/MeshComponent.h"
+#include "Components/AudioComponent.h"
 
 //camera
 #include "GameFramework/SpringArmComponent.h"
@@ -66,6 +67,12 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* playerMoveAction;
 
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* attack1Action;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* attack2Action;
+
 	//camera components
 	UPROPERTY(EditAnywhere, Category = "Camera")
 	UCameraComponent* cameraComponent;
@@ -73,8 +80,18 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Camera")
 	USpringArmComponent* springArmComponent;
 
+	//pther player components
+	UPROPERTY(EditAnywhere, Category = "Sound")
+	UAudioComponent* playerAudeoComponent;
+
+	UPROPERTY(EditAnywhere, Category = "Sound")
+	TArray<USoundBase*> attack2SoundLibary;
+
 private:
 	void CameraRotateY(const FInputActionValue& Value);
 	void CameraRotateX(const FInputActionValue& Value);
 	void PlayerMove(const FInputActionValue& Value);
+	void Aattack1(const FInputActionValue& Value);
+	void Aattack2(const FInputActionValue& Value);
+
 };
