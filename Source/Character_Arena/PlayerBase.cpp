@@ -24,6 +24,10 @@ APlayerBase::APlayerBase()
 	//create other components
 	playerAudeoComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("PlayerAudeoComponent"));
 	playerAudeoComponent->SetupAttachment(RootComponent);
+
+	//settup combo moves
+	comboManager = CreateDefaultSubobject<UComboManagerComponent>(TEXT("ComboManager"));
+	comboManager->addNewMove(AT1damage, AT1stun, AT1name, AT1SoundLibary, AT1animation);
 }
 
 // Called when the game starts or when spawned
@@ -56,8 +60,8 @@ void APlayerBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	EIC->BindAction(cameraRotateXAction, ETriggerEvent::Triggered, this, &APlayerBase::CameraRotateX);
 	EIC->BindAction(cameraRotateYAction, ETriggerEvent::Triggered, this, &APlayerBase::CameraRotateY);
 	EIC->BindAction(playerMoveAction, ETriggerEvent::Triggered, this, &APlayerBase::PlayerMove);
-	EIC->BindAction(attack1Action, ETriggerEvent::Triggered, this, &APlayerBase::Aattack1);
-	EIC->BindAction(attack2Action, ETriggerEvent::Triggered, this, &APlayerBase::Aattack2);
+	EIC->BindAction(attack1Action, ETriggerEvent::Started, this, &APlayerBase::Aattack1);
+	EIC->BindAction(attack2Action, ETriggerEvent::Started, this, &APlayerBase::Aattack2);
 }
 
 void APlayerBase::CameraRotateX(const FInputActionValue& Value)
@@ -98,11 +102,10 @@ void APlayerBase::PlayerMove(const FInputActionValue& Value)
 
 void APlayerBase::Aattack1(const FInputActionValue& Value)
 {
+	comboManager->getMoveByName(AT1name)->PlayComboAnim(GetMesh());
 }
 
 void APlayerBase::Aattack2(const FInputActionValue& Value)
 {
-	//summon magastu izanagi
-	//do some attack
-	//play souynd
+	UGameplayStatics::SpawnSoundAttached(attack2SoundLibary[FMath::RandRange(0, (attack2SoundLibary.Num()) - 1)], GetRootComponent());
 }

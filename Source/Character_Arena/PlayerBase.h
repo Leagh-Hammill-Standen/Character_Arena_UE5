@@ -8,6 +8,8 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Components/MeshComponent.h"
 #include "Components/AudioComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "Math/UnrealMathUtility.h"
 
 //camera
 #include "GameFramework/SpringArmComponent.h"
@@ -20,6 +22,9 @@
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 
+//combo system
+#include "ComboManagerComponent.h"
+#include "ComboTemplate.h"
 #include "PlayerBase.generated.h"
 
 class UCameraComponent;
@@ -86,6 +91,23 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Sound")
 	TArray<USoundBase*> attack2SoundLibary;
+
+	//combo system
+	UPROPERTY(EditAnywhere)
+	UComboManagerComponent* comboManager;
+
+	//combo attack 1
+	UPROPERTY(EditAnywhere, Category = "combo|combo attack 1")
+	float AT1damage;
+	UPROPERTY(EditAnywhere, Category = "combo|combo attack 1")
+	float AT1stun;
+	UPROPERTY(EditAnywhere, Category = "combo|combo attack 1")
+	FString AT1name;
+	UPROPERTY(EditAnywhere, Category = "combo|combo attack 1")
+	TArray<USoundBase*> AT1SoundLibary;
+	UPROPERTY(EditAnywhere, Category = "combo|combo attack 1")
+	UAnimSequence* AT1animation;
+;
 
 private:
 	void CameraRotateY(const FInputActionValue& Value);
